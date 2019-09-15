@@ -5,4 +5,19 @@ THEN
     DELETE FROM booking WHERE NEW.Roomnr=booking.Roomnr AND NEW.day=booking.day AND NEW.StudentID = booking.StudentID;
 END IF;
 
-
+================================================
+BEGIN
+DECLARE new_StudentID int;
+DECLARE new_Roomnr int;
+DECLARE new_day ENUM('mon','tue','wed','thu','fri');
+SET new_StudenID <Djak>;
+SET new_Roomnr <Ucionica>;
+SET new_day <dan>;
+IF (SELECT count(booking.StudentID) FROM booking WHERE booking.Roomnr = new_Roomnr AND booking.day=new_day) < 
+  (SELECT rooms.Places FROM rooms WHERE rooms.Roomnr=new_Roomnr)
+    THEN
+      INSERT INTO booking VALUES (new_StudentID, new_Roomnr, new_day);
+      ELSE
+      SELECT true;
+    ENDIF;
+END;
