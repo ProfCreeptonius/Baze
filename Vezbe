@@ -21,3 +21,140 @@ IF (SELECT count(booking.StudentID) FROM booking WHERE booking.Roomnr = new_Room
       SELECT true;
     ENDIF;
 END;
+
+=========================================================
+
+public class Count
+{
+    //algebraic operators
+    
+    public int max(int[] a){
+        int result = 0;
+        for(int x: a){
+            if(x>result){
+                result = x;
+            }
+        }
+        return result;
+    }
+    
+    //Gap size definitions
+    public int gap_size = 100;
+    
+    public void setSize(int a){
+        gap_size = a;
+    }
+    
+    public int getSize(){
+        return gap_size;
+    }
+    
+    //First number definitions
+    public static int start_number = 0;
+    
+    public void setStart(int a){
+        start_number = a;
+    }
+    
+    public int getStart(){
+        return start_number;
+    }
+    
+    //Checker definitions
+    
+    public int[] arrayToCheck(){
+        int result[]=new int[getSize()];
+        for(int i=0; i<getSize(); i++){
+            result[i]=start_number+i; 
+        }
+        return result;
+    }
+    
+    //prime list
+    public int[] primesToCheck;
+    
+    public void setPrimes(int[] a){
+        primesToCheck = a;
+    }
+    
+    public int[] getPrimes(){
+        return primesToCheck;
+    }
+    
+    //checked array
+    
+    public int[] checked(){
+        int[]checkMe = new int[getSize()];
+        checkMe = arrayToCheck();
+        for(int a : primesToCheck){
+            for(int b = 0; b<checkMe.length; b++){
+                if(checkMe[b]%a==0){
+                    checkMe[b]=-1;
+                } else {
+                    ;
+                }
+            }
+        }
+        return checkMe;
+    }
+    
+    public void printChecked(){
+    int[] printMe = new int[checked().length];
+    printMe = checked();
+    for(int a : printMe){
+        System.out.println(""+a);
+    }
+    }
+    
+    //count nonnegative checked
+    
+    public int countPrimes(){
+        int result = 0;
+        for(int a : checked()){
+            if(a>0){
+                result++;
+            }
+        }
+        return result;
+    }
+    
+    //set increment of checked entries definitions
+    
+    public int increment = 10;
+    
+    public void setIncrement(int a){
+        increment = a;
+    }
+    
+    public int getIncrement(){
+        return increment;
+    }
+    
+    //set amount of entries to check
+    
+    public int repetitions=1;
+    
+    public void setRepetitions(int a){
+        repetitions = a;
+    }
+    
+    public int getRepetitions(){
+        return repetitions;
+    }
+    
+    //code of repetitionchecker.
+    public int[] repetitionChecked(){
+        int memoryOfStart = start_number;
+        int[] result = new int[repetitions];
+        for(int a = 0; a<repetitions; a++){
+            result[a]=countPrimes();
+            start_number=start_number+increment;
+        }
+        start_number=memoryOfStart;
+        return result;
+    }
+    
+    public int maxOfRepetitions(){
+        return max(repetitionChecked());
+    }
+}
