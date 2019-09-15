@@ -1,1 +1,8 @@
+CREATE TRIGGER CheckStudents AFTER INSERT ON booking FOR EACH ROW
+IF (SELECT count(booking.StudentID) FROM booking WHERE NEW.Roomnr = booking.Roomnr AND NEW.day = booking.day) > 
+  (SELECT rooms.Places FROM rooms WHERE NEW.Roomnr = rooms.Roomnr)
+THEN
+    DELETE FROM booking WHERE NEW.Roomnr=booking.Roomnr AND NEW.day=booking.day AND NEW.StudentID = booking.StudentID;
+END IF;
+
 
